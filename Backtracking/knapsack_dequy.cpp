@@ -26,8 +26,10 @@ void Open()
 
 void Backtracking(int i, Tuple sum)
 {
+    if (sum.second > W) return ;
     if (i == n) 
         {
+            cout << sum.first << " ";
             if (sum.second <= W)
             {    
                 if (best_sum.first < sum.first) best_sum = sum;
