@@ -35,13 +35,13 @@ void Backtracking(int i, Tuple sum)
             }
             return;
         }
-    Backtracking(i + 1, {sum.first, sum.second, sum.third});
+    Backtracking(i + 1, {sum.first + (v[i] * 0), sum.second + (w[i] * 0), sum.third});
     Backtracking(i + 1, {sum.first + v[i], sum.second + w[i], sum.third + 1});
-}
+}\
 
 void Print()
 {
-    cout << best_sum.first << " " << best_sum.third;
+    cout << best_sum.first << "\n" << best_sum.third;
 }
 
 int main()
