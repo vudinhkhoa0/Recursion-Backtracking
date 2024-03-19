@@ -15,6 +15,7 @@ void backtracking(int i, int sum, int &max_sum, int n, int *a)
 {
     if (i == n)
     {
+
         if (sum > max_sum) max_sum = sum;
         return;
     }
@@ -32,7 +33,6 @@ void Print(int n, int *a, int max_sum)
 
 int main()
 {
-    bool check = false;
     int n, max_sum = -1e9;
     int *a = new int[n];
     Open(n, a);
