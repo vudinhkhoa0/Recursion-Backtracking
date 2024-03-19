@@ -1,6 +1,4 @@
-#include <iostream>
-
-using namespace std;
+#include "../../Doan_QLCB/lib/Library.h"
 
 void Open(int &n, int *a)
 {
@@ -34,6 +32,7 @@ void Print(int n, int *a, int max_sum)
 
 int main()
 {
+    bool check = false;
     int n, max_sum = -1e9;
     int *a = new int[n];
     Open(n, a);
@@ -41,3 +40,4 @@ int main()
     Print(n, a, max_sum);
     return 0;
 }
+
