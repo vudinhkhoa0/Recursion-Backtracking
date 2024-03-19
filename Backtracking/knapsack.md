@@ -11,5 +11,12 @@
 ### Output:
 #### Dòng đầu tiên chứa một số nguyên duy nhất là tổng giá trị lớn nhất của tập hợp con các đồ vật được chọn.
 #### Dòng thứ hai chứa một số nguyên duy nhất là số lượng đồ vật được chọn.
-
+|input|Ouput|
+|-----|-----|
+|5 10|14|
+|2 3|4|
+|1 2||
+|4 5||
+|3 4||
+|5 6||
     
