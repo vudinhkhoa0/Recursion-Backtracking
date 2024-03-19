@@ -26,7 +26,7 @@ void Open()
 
 void Backtracking(int i, Tuple sum)
 {
-    if (sum.second > W) return ;
+    if (sum.second > W) return ; // Quay lui nhánh cận
     if (i == n) 
         {
             cout << sum.first << " ";
