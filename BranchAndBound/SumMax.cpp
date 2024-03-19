@@ -1,5 +1,4 @@
 #include "../../Doan_QLCB/lib/Library.h"
-
 void Open(int &n, int *a)
 {
     cout << "n = ";
@@ -10,7 +9,6 @@ void Open(int &n, int *a)
         cin >> a[i];
     }
 }
-
 void backtracking(int i, int sum, int &max_sum, int n, int *a)
 {
     if (i == n)
@@ -23,14 +21,12 @@ void backtracking(int i, int sum, int &max_sum, int n, int *a)
     backtracking(i + 1, sum, max_sum, n, a);
     backtracking(i + 1, sum + a[i], max_sum, n, a);
 }
-
 void Print(int n, int *a, int max_sum)
 {
     cout << n << "\n";
     for (int i = 0; i < n; i++) cout << a[i] << " ";
     cout << "\n" << "Max sum: " << max_sum;
 }
-
 int main()
 {
     int n, max_sum = -1e9;
@@ -40,4 +36,3 @@ int main()
     Print(n, a, max_sum);
     return 0;
 }
-
