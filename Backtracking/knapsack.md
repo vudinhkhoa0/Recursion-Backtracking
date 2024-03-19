@@ -1,5 +1,6 @@
 # Knapsack
-## Cho n do vat (n <= 20), moi do vat co mot gia tri khac nhau. Tim cach chon sao cho (thu tu uu tien):
-###    + Tong cac vat co gia tri lon nhat
-###    + Nhieu vat nhat
+## Cho n đồ vật (n <= 20), mỗi đồ vật có một giá trị khác nhau. Tìm cách chọn sao cho (thứ tự ưu tiên):
+###    + Tổng các vật có giá trị lớn nhất
+###    + Nhiều vật nhất
+
     
