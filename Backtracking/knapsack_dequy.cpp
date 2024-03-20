@@ -1,55 +1,95 @@
 #include "../../Doan_QLCB/lib/Library.h"
-class Tuple
+
+struct Item
 {
-    public:
-        int first, second, third;
-        Tuple(int first, int second, int third)
-        {
-            this->first = first;
-            this->second = second;
-            this->third = third;
-        };
-        ~Tuple(){};
+    int weight, value;  
 };
 
-Tuple best_sum(-1e9, 0, 0);
-int n, W, *v = new int[n], *w = new int [n];
-
-void Open()
+class Result 
 {
-    cin >> n >> W;
-    for (int i = 0; i < n; i++)
+    public:
+        int totalWeight, totalValue, totalItem, totalChoseItem;
+        bool *status;
+        Result()
+        {
+            this->totalWeight = 0;
+            this->totalValue = 0;
+            this->totalItem = 0;
+            this->totalChoseItem = 0;
+            this->status = nullptr;
+        };
+        Result(int totalWeight, int totalValue, int totalItem, int totalChoseItem)
+        {
+            this->totalWeight = totalWeight;
+            this->totalValue = totalValue;
+            this->totalItem = totalItem;
+            this->totalChoseItem = totalChoseItem;
+            this->status = new bool[totalItem];
+        }
+        ~Result(){};
+};
+
+void Open(int &total_item, int &max_weight, Item *items)
+{
+    cin >> total_item >> max_weight;
+    for (int i = 0; i < total_item; i++) 
+        cin >> items[i].weight >> items[i].value;
+}
+
+void Knapsack(int index, const int total_item, bool *status, const Item *items, const int max_weight, Result &result, int totalItem)
+{
+    if (index == total_item)
     {
-        cin >> w[i] >> v[i];
+        int totalWeight = 0, totalValue = 0;
+        for (int i = 0; i < total_item; i++)
+            {
+                totalWeight += status[i] * items[i].weight;
+                totalValue += status[i] * items[i].value;
+            }
+        
+        if (totalWeight <= max_weight)
+            if (totalValue > result.totalValue || (totalValue == result.totalValue && result.totalItem < totalItem))
+            {
+                result.totalValue = totalValue;
+                result.totalWeight = totalWeight;
+                result.totalItem = 0;
+                for (int i = 0; i < total_item; i ++)
+                {
+                    result.totalItem += status[i];
+                }
+                memcpy(result.status, status, total_item * sizeof(bool));
+            }
+        return;
+    }
+
+    for (int i = 0; i <= 1; i++)
+    {
+        status[index] = i;
+        totalItem += i;
+        Knapsack(index + 1, total_item, status, items, max_weight, result, totalItem);
+        totalItem -=i;
     }
 }
 
-void Backtracking(int i, Tuple sum)
+void Print(Result result, const int total_item)
 {
-    if (sum.second > W) return ; // Quay lui nhánh cận
-    if (i == n) 
-        {
-            cout << sum.first << " ";
-            if (sum.second <= W)
-            {    
-                if (best_sum.first < sum.first) best_sum = sum;
-                else if (best_sum.first == sum.first && sum.third > best_sum.third) best_sum = sum;
-            }
-            return;
-        }
-    Backtracking(i + 1, {sum.first + (v[i] * 0), sum.second + (w[i] * 0), sum.third});
-    Backtracking(i + 1, {sum.first + v[i], sum.second + w[i], sum.third + 1});
-}\
-
-void Print()
-{
-    cout << best_sum.first << "\n" << best_sum.third;
+    cout << result.totalValue << "\n" << result.totalItem ;
 }
 
 int main()
 {
-    Open();
-    Backtracking(0, {0, 0, 0});
-    Print();
+    int total_item = 0, max_weight = 0;
+
+    Item *items = new Item[total_item];
+    Open(total_item, max_weight, items);
+
+    bool *status = new bool[total_item];
+    int totalItem = 0;
+    memset(status, false, total_item * sizeof(bool));
+
+    Result result(0, 0, total_item, 0);
+
+    Knapsack(0, total_item, status, items, max_weight, result, totalItem);
+    Print(result, total_item);
     return 0;
 }
