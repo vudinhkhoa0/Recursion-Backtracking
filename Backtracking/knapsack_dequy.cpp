@@ -46,8 +46,8 @@ void Knapsack(int index, const int total_item, bool *status, const Item *items, 
                 totalWeight += status[i] * items[i].weight;
                 totalValue += status[i] * items[i].value;
             }
-        
-        if (totalWeight <= max_weight)
+        if (totalWeight > max_weight) return;
+        else if (totalWeight <= max_weight)
             if (totalValue > result.totalValue || (totalValue == result.totalValue && result.totalItem < totalItem))
             {
                 result.totalValue = totalValue;
