@@ -5,6 +5,7 @@ struct Item
     int weight, value;  
 };
 
+
 class Result 
 {
     public:
@@ -36,7 +37,7 @@ void Open(int &total_item, int &max_weight, Item *items)
         cin >> items[i].weight >> items[i].value;
 }
 
-void Knapsack(int index, const int total_item, bool *status, const Item *items, const int max_weight, Result &result, int totalItem)
+void Knapsack(int index, const int total_item, bool *status, const Item *items, const int max_weight, Result &result, int totalItem, int W)
 {
     if (index == total_item)
     {
@@ -46,8 +47,8 @@ void Knapsack(int index, const int total_item, bool *status, const Item *items, 
                 totalWeight += status[i] * items[i].weight;
                 totalValue += status[i] * items[i].value;
             }
-        if (totalWeight > max_weight) return;
-        else if (totalWeight <= max_weight)
+       
+        if (totalWeight <= max_weight)
             if (totalValue > result.totalValue || (totalValue == result.totalValue && result.totalItem < totalItem))
             {
                 result.totalValue = totalValue;
@@ -65,9 +66,13 @@ void Knapsack(int index, const int total_item, bool *status, const Item *items, 
     for (int i = 0; i <= 1; i++)
     {
         status[index] = i;
-        totalItem += i;
-        Knapsack(index + 1, total_item, status, items, max_weight, result, totalItem);
+        totalItem += i; 
+        W += items[index].weight * i;
+        if (W <= max_weight)
+        Knapsack(index + 1, total_item, status, items, max_weight, result, totalItem, W);
+        W -= items[i].weight * i;
         totalItem -=i;
+        
     }
 }
 
@@ -89,7 +94,7 @@ int main()
 
     Result result(0, 0, total_item, 0);
 
-    Knapsack(0, total_item, status, items, max_weight, result, totalItem);
+    Knapsack(0, total_item, status, items, max_weight, result, totalItem, 0);
     Print(result, total_item);
     return 0;
 }
